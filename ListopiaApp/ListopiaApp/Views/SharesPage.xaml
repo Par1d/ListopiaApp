@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListopiaApp.Views.SharesPage"
+             Title="Your Invitations">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ShareList" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="10, 0">
+                                <Label TextColor="Black">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding InviterUsername}" />
+                                            <Span Text=" has invited you to share their list " />
+                                            <Span Text="{Binding ListName}" TextColor="{StaticResource CompanyColorDark}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Button Text="Accept" Command="{Binding AcceptCommand}" TextColor="{StaticResource CompanyColorDark}" BackgroundColor="Transparent"/>
+                                <Button Text="Decline" Command="{Binding DeclineCommand}" TextColor="{StaticResource CompanyColorDark}" BackgroundColor="Transparent"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

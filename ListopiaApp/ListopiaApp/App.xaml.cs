@@ -28,7 +28,6 @@ namespace ListopiaApp
         {
 
             InitializeComponent();
-            REST.Service.RefreshAuth();
             if (AuthInfo != null)
                 MainPage = new NavigationPage(new Views.ListsPage())
                 {
@@ -41,7 +40,6 @@ namespace ListopiaApp
 
         protected override void OnStart()
         {
-            REST.Service.RefreshAuth();
             if (AuthInfo != null)
                 MainPage = new NavigationPage(new Views.ListsPage())
                 {

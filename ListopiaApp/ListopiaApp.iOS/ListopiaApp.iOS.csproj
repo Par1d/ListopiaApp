@@ -167,4 +167,22 @@
   <ItemGroup>
     <BundleResource Include="Resources\gear%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\uncheckedbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\uncheckedbox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\uncheckedbox%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkedbox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkedbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkedbox%403x.png" />
+  </ItemGroup>
 </Project>

@@ -120,8 +120,11 @@ namespace ListopiaApp.Views
 
         private async void AddButton_Clicked(object sender, EventArgs e)
         {
-            _items.Add(await REST.Service.AddListItem(new ListItem { Name = AddEntry.Text, CheckedByUserName = "", ListId = _list.Id}));
-            AddEntry.Text = "";
+            if (!string.IsNullOrWhiteSpace(AddEntry.Text))
+            {
+                _items.Add(await REST.Service.AddListItem(new ListItem { Name = AddEntry.Text, CheckedByUserName = "", ListId = _list.Id }));
+                AddEntry.Text = "";
+            }
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -146,6 +149,12 @@ namespace ListopiaApp.Views
             _items = await REST.Service.GetListItems(_list.Id);
             ItemsList.ItemsSource = _items;
             ItemsList.IsRefreshing = false;
+        }
+
+        private void Settings_Clicked(object sender, EventArgs e)
+        {
+            if (_list.OwnerName == (App.Current as App).AuthInfo.username)
+                Navigation.PushAsync(new ListSettingsPage(_list));
         }
     }
 }

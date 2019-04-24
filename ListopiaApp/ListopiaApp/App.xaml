@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ListopiaApp.App">
     <Application.Resources>
-        <Color x:Key="CompanyColor">#4FB284</Color>
+        <Color x:Key="CompanyColor">#008080</Color>
+        <Color x:Key="CompanyColorLight">#B2D8D8</Color>
+        <Color x:Key="CompanyColorDark">#004C4C</Color>
     </Application.Resources>
 </Application>

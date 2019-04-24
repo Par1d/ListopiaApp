@@ -1,19 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ListopiaApp.Views.ListsPage"
-             Title="Your Lists">
+             x:Class="ListopiaApp.Views.ListsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Logout" Clicked="LogoutItem_Clicked" />
+        <ToolbarItem Text="Logout" Clicked="LogoutItem_Clicked" Order="Secondary"/>
+        <ToolbarItem Text="Invites" Clicked="InvitesItem_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <Grid Padding="10, 1">
+        <Grid Padding="10, 2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="8*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+            </Grid.RowDefinitions>
             <Entry x:Name="AddEntry" Grid.Column="0" Placeholder="New List..." />
-            <Button x:Name="AddButton" Grid.Column="1" Text="Add" Clicked="AddButton_Clicked" />
+            <Button x:Name="AddButton" Grid.Column="1" Text="Add" Clicked="AddButton_Clicked" BackgroundColor="{StaticResource CompanyColorDark}" TextColor="White" />
         </Grid>
         <BoxView HeightRequest="1" Color="{StaticResource CompanyColor}"></BoxView>
         <ListView x:Name="ListsList" ItemSelected="ListView_ItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True" Refreshing="ListsList_Refreshing">
@@ -21,7 +24,6 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem Text="Edit" Clicked="ContextEdit_Clicked"/>
                             <MenuItem Text="Delete" IsDestructive="True" Clicked="ContextDelete_Clicked"/>
                         </ViewCell.ContextActions>
                         <StackLayout Padding="5">

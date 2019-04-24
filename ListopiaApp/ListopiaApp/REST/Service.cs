@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ListopiaApp.REST
 {
-    static class Service
+    public static class Service
     {
         static App app = App.Current as App;
         private static HttpClient _client = new HttpClient();
@@ -55,6 +55,7 @@ namespace ListopiaApp.REST
         static async public Task<bool> EditList(List list)
         {
             var result = await _client.PutAsync(_apiUrl + $"Lists/{list.Id}", new FormUrlEncodedContent(ObjectToKeyValuePairs(list)));
+            Debug.WriteLine(await result.Content.ReadAsStringAsync());
             return result.IsSuccessStatusCode;
         }
 
@@ -85,7 +86,40 @@ namespace ListopiaApp.REST
         static async public Task<bool> EditListItem(ListItem listItem)
         {
             var result = await _client.PutAsync(_apiUrl + $"ListItems/{listItem.Id}", new FormUrlEncodedContent(ObjectToKeyValuePairs(listItem)));
-            Debug.WriteLine(await result.Content.ReadAsStringAsync());
+            return result.IsSuccessStatusCode;
+        }
+
+        static async public Task<ShareInvite> AddShareInvite(ShareInvite shareInvite)
+        {
+            var result = await _client.PostAsync(_apiUrl + "Invites", new FormUrlEncodedContent(ObjectToKeyValuePairs(shareInvite)));
+            return JsonConvert.DeserializeObject<ShareInvite>(await result.Content.ReadAsStringAsync());
+        }
+
+        static async public Task<ObservableCollection<ShareInvite>> GetListShareInvites(List list)
+        {
+            var result = await _client.GetAsync(_apiUrl + $"Lists/{list.Id}/Invites");
+
+            if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return null;
+
+            return JsonConvert.DeserializeObject<ObservableCollection<ShareInvite>>(await result.Content.ReadAsStringAsync());
+        }
+
+        static async public Task<ObservableCollection<ShareInvite>> GetShareInvites()
+        {
+            var result = await _client.GetAsync(_apiUrl + "Invites");
+            return JsonConvert.DeserializeObject<ObservableCollection<ShareInvite>>(await result.Content.ReadAsStringAsync());
+        }
+
+        static async public Task<bool> AcceptInvite(ShareInvite invite)
+        {
+            var result = await _client.PutAsync(_apiUrl + $"Invites/{invite.Id}/Accept", null);
+            return result.IsSuccessStatusCode;
+        }
+
+        static async public Task<bool> DeclineInvite(ShareInvite invite)
+        {
+            var result = await _client.PutAsync(_apiUrl + $"Invites/{invite.Id}/Decline", null);
             return result.IsSuccessStatusCode;
         }
 
@@ -95,7 +129,8 @@ namespace ListopiaApp.REST
 
             foreach(var prop in obj.GetType().GetProperties())
             {
-                list.Add(new KeyValuePair<string, string>(prop.Name, prop.GetValue(obj).ToString()));
+                if (prop.GetValue(obj) != null)
+                    list.Add(new KeyValuePair<string, string>(prop.Name, prop.GetValue(obj).ToString()));
             }
 
             return list;
@@ -103,6 +138,7 @@ namespace ListopiaApp.REST
 
         public static void RefreshAuth()
         {
+            if (_client == null) _client = new HttpClient();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthInfo.access_token);
         }
 

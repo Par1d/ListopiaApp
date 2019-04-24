@@ -3,19 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ListopiaApp.Views.ListItemsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings" />
+        <ToolbarItem Text="Settings" Clicked="Settings_Clicked"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <Grid Padding="10, 1">
+        <Grid Padding="10, 2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="8*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+            </Grid.RowDefinitions>
             <Entry x:Name="AddEntry" Grid.Column="0" Placeholder="New Item..." />
-            <Button x:Name="AddButton" Grid.Column="1" Text="Add" Clicked="AddButton_Clicked" />
+            <Button x:Name="AddButton" Grid.Column="1" Text="Add" Clicked="AddButton_Clicked" BackgroundColor="{StaticResource CompanyColorDark}" TextColor="White" />
 
             <Entry x:Name="EditEntry" Grid.Column="0" IsVisible="False"/>
-            <Button x:Name="SaveButton" Grid.Column="1" Text="Save" Clicked="SaveButton_Clicked" IsVisible="False"/>
+            <Button x:Name="SaveButton" Grid.Column="1" Text="Save" Clicked="SaveButton_Clicked" IsVisible="False" BackgroundColor="{StaticResource CompanyColorDark}" TextColor="White"/>
         </Grid>
         <BoxView HeightRequest="1" Color="{StaticResource CompanyColor}"></BoxView>
         <ListView x:Name="ItemsList" SelectionMode="None" ItemTapped="Switch_Toggled" IsPullToRefreshEnabled="True" Refreshing="ItemsList_Refreshing">
@@ -28,14 +31,14 @@
                         </ViewCell.ContextActions>
                         <StackLayout Orientation="Horizontal" Padding="10, 0" VerticalOptions="FillAndExpand">
                             <Label Text="{Binding Name}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" FontSize="20" />
-                            <Label Text="☑" IsVisible="{Binding IsChecked}" FontSize="20" VerticalOptions="Center"/>
-                            <Label Text="☐" FontSize="20" VerticalOptions="Center">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding IsChecked}" Value="True">
+                            <Image Source="checkedbox.png" IsVisible="{Binding IsChecked}" VerticalOptions="Center"/>
+                            <Image Source="uncheckedbox.png" VerticalOptions="Center">
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsChecked}" Value="True">
                                         <Setter Property="IsVisible" Value="False" />
                                     </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
+                                </Image.Triggers>
+                            </Image>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

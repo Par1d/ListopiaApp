@@ -33,5 +33,10 @@ namespace ListopiaApp.Views
             else
                 ErrorLabel.IsVisible = true;
         }
+
+        private async void SignUpButton_Clicked(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

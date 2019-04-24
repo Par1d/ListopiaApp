@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListopiaApp.Views.ListSettingsPage"
+             Title="Settings">
+    <StackLayout>
+        <Label Text="List Title" FontSize="Large" Margin="10, 0" TextColor="Black"/>
+        <Grid Padding="10, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Entry x:Name="TitleEntry" Grid.Column="0"  />
+            <Button x:Name="SaveTitle" Grid.Column="1" Text="Save" Clicked="SaveTitleButton_Clicked" BackgroundColor="{StaticResource CompanyColorDark}" TextColor="White" />
+        </Grid>
+        <BoxView HeightRequest="1" Color="{StaticResource CompanyColor}"></BoxView>
+        
+        <Label Text="Share List" FontSize="Large" Margin="10, 0" TextColor="Black" />
+        <Grid Padding="10, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Entry x:Name="AddEntry" Grid.Column="0" Placeholder="Share with..." />
+            <Button x:Name="AddButton" Grid.Column="1" Text="Add" Clicked="AddButton_Clicked" BackgroundColor="{StaticResource CompanyColorDark}" TextColor="White" />
+        </Grid>
+        <BoxView HeightRequest="1" Color="{StaticResource CompanyColor}"></BoxView>
+        <ListView x:Name="InvitesList" HasUnevenRows="True" IsPullToRefreshEnabled="True" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Delete" IsDestructive="True" Clicked="ContextDelete_Clicked"/>
+                        </ViewCell.ContextActions>
+                        <StackLayout Padding="5">
+                            <Label Text="{Binding InvitedUsername}" TextColor="{StaticResource CompanyColor}" FontSize="20"/>
+                            <Label Text="{Binding Accepted}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

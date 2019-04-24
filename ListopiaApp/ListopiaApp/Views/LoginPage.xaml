@@ -4,10 +4,14 @@
              x:Class="ListopiaApp.Views.LoginPage">
     <StackLayout VerticalOptions="Center" Padding="20">
         <Label Text="Listopia" HorizontalTextAlignment="Center" TextColor="{StaticResource CompanyColor}" FontSize="80"/>
-        <Label Text="Peace of mind ☑" HorizontalTextAlignment="Center" FontSize="30" TextColor="#000000"/>
+        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+            <Label Text="Peace of mind" HorizontalTextAlignment="Center" FontSize="30" TextColor="#000000"/>
+            <Image Source="checkedbox.png" />
+        </StackLayout>
         <Entry x:Name="EmailEntry" Placeholder="Email"/>
         <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"/>
         <Label x:Name="ErrorLabel" Text="Invalid Credentials" TextColor="#B24D3D" HorizontalTextAlignment="Center" IsVisible="False"/>
-        <Button x:Name="LoginButton" Text="Login" Clicked="LoginButton_Clicked" BackgroundColor="{StaticResource CompanyColor}" TextColor="#FFFFFF"/>
+        <Button x:Name="LoginButton" Text="Login" Clicked="LoginButton_Clicked" BackgroundColor="{StaticResource CompanyColorDark}" TextColor="#FFFFFF"/>
+        <Button x:Name="SignUpButton" Text="Sign Up" Clicked="SignUpButton_Clicked" BackgroundColor="Transparent" TextColor="{StaticResource CompanyColorDark}"/>
     </StackLayout>
 </ContentPage>

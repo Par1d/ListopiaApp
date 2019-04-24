@@ -15,6 +15,7 @@ namespace ListopiaApp.Views
 		{
 			InitializeComponent ();
             Title = (App.Current as App).AuthInfo.username;
+            REST.Service.RefreshAuth();
         }
 
         protected async override void OnAppearing()
@@ -49,7 +50,10 @@ namespace ListopiaApp.Views
 
         private async void AddButton_Clicked(object sender, EventArgs e)
         {
-            Lists.Add(await REST.Service.AddList(new List { Title = AddEntry.Text, OwnerName = "" }));
+            if (!string.IsNullOrWhiteSpace(AddEntry.Text))
+            {
+                Lists.Add(await REST.Service.AddList(new List { Title = AddEntry.Text, OwnerName = "" }));
+            }
         }
 
         private async void ListsList_Refreshing(object sender, EventArgs e)
@@ -68,9 +72,9 @@ namespace ListopiaApp.Views
                 Lists.Remove(list);
         }
 
-        private async void ContextEdit_Clicked(object sender, EventArgs e)
+        private void InvitesItem_Clicked(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new SharesPage());
         }
     }
 }
